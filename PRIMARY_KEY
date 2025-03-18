@@ -1,0 +1,64 @@
+--PRIMARY KEY CONSTRAINTS
+
+--Primary key have unique value does not have null value
+--In a table only one primary key not a multiple primary key
+--Using compsit key can be add primary key for one or more column
+
+
+CREATE DATABASE STUDENT
+
+CREATE TABLE STUDENTS
+(
+STUDENTID INT Primary key,
+FIRST_NAME VARCHAR(50),
+LAST_NAME VARCHAR(50),
+DateOfBirth date,
+Gender char(1)
+)
+
+
+INSERT INTO STUDENTS VALUES
+(1001,'Aiswarya','Jayaram','2001-02-02','F'),
+(1002,'Anand','venkat','2003-12-02','M'),
+(1003,'Bala','Sundaram','2004-08-01','M'),
+(1004,'Deepa','Mani','2005-05-07','F'),
+(1005,'Gopi','Bala','2006-12-06','M'),
+(1006, 'Gokul','Saravanan','2007-05-03','M')
+
+SELECT * FROM STUDENTS 
+
+INSERT INTO STUDENTS VALUES(1006, 'Gokul','Saravanan','2007-05-03','M')
+
+DROP TABLE STUDENTS
+
+---Another way for creating the PRIMARY KEY
+
+CREATE TABLE STUDENTS
+(
+STUDENTID INT,
+FIRST_NAME VARCHAR(50),
+LAST_NAME VARCHAR(50),
+DateOfBirth date,
+Gender char(1)
+constraint pk_student primary key(STUDENTID)
+)
+
+----another way of creating PRIMARY KEY
+
+CREATE TABLE STUDENTS
+(
+STUDENTID INT not null,
+FIRST_NAME VARCHAR(50),
+LAST_NAME VARCHAR(50),
+DateOfBirth date,
+Gender char(1)
+)
+
+
+ALTER TABLE STUDENTS ADD primary key(STUDENTID)
+
+ALTER TABLE STUDENTS ADD constraint pk_student primary key(STUDENTID)
+
+---how to delete the PRIMARY KEY
+
+ALTER TABLE STUDENTS DROP CONSTRAINT pk_student
