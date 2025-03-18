@@ -1,0 +1,47 @@
+select * from Production.Product
+
+SELECT * FROM Production.Product WHERE ProductID = 322
+
+SELECT * FROM Production.Product WHERE ProductID >= 900
+
+SELECT * FROM Production.Product WHERE ProductID <= 900
+
+SELECT * FROM Production.Product WHERE ProductID <> 316
+
+SELECT * FROM Production.Product WHERE ProductID != 317
+
+SELECT * FROM Production.Product WHERE ProductID >= 316 and ProductID<=322
+
+SELECT * FROM Production.Product WHERE ProductID between 316 and 322
+
+SELECT * FROM Production.Product WHERE color = 'Silver'
+
+SELECT * FROM Production.Product WHERE color <> 'Silver'
+
+SELECT * FROM Production.Product WHERE color in  ('Silver', 'black','Red')
+
+SELECT * FROM Production.Product WHERE color not  in  ('Silver', 'black','Red')
+
+SELECT * FROM Production.Product WHERE color = 'Silver' and StandardCost >=1000
+
+SELECT * FROM Production.Product WHERE color = 'Silver' or   StandardCost >=1000
+
+SELECT * FROM Production.Product WHERE size is not null
+
+SELECT * FROM Production.Product WHERE size is  null
+
+SELECT * FROM Production.Product WHERE SellStartDate = '2008-04-30'
+
+SELECT * FROM Production.Product WHERE SellStartDate between '2011-04-30' and  '2012-05-31'
+
+--------------------------------------QUESTION-------------------------------------
+
+----1. COLOR = BLACK OR YELLOW 2.SIZE = S, 3.SELLENDDATE IS NULL
+
+SELECT * FROM Production.Product WHERE COLOR IN ('Black','Yellow') and size = 'S' and SellEndDate is null
+
+
+---1.ProductID RANGE 800 TO 900	
+---2.Color = silver or listprice > 100
+
+SELECT * FROM Production.Product WHERE  ProductID between 800 and 900 and (Color = 'Silver' or ListPrice >100)
