@@ -1,0 +1,139 @@
+SELECT * FROM salesman
+SELECT * FROM Orders
+
+----SELECT ALL THE ORDER ISSUED BY MUTHU 
+
+----we need to find Muthu's salesmanID
+----using salesmanID can find the muthu's order
+
+SELECT * FROM Orders WHERE salesman_ID =
+(SELECT salesman_ID FROM salesman WHERE Name = 'Muthu')
+
+----select all the order issued by the salesman IN  CHENNAI
+
+-----1. FIRST WE NEED TO FIND THE CHENNAI SALESMANID AND 
+-----2. USING THE SALESMANDID CAN FIND THESE ORDE
+
+
+SELECT  * FROM Orders WHERE salesman_ID IN (
+SELECT salesman_ID FROM salesman WHERE city = 'CHENNAI')
+
+-----SELECT ALL THE EMPLOYEE WHO SALARY IS	GREATER THAN AVERAGE SALARY OF ALL THE EMPLOYEE
+
+-----FIRST WE NEED TO FIND THE AVERAGE SALARY OF ALL THE EMPLOYEE
+-----USING THE AVERAGE CAN BE FIND THE WHO IS HIGHEST SALARY OF AVERAGE
+
+SELECT * FROM Employee
+
+SELECT * FROM Employee WHERE SALARY > (
+SELECT  AVG(SALARY)  FROM Employee)
+
+-----SELECT ALL THE EMPLOYEE WHO SALARY IS	LESS THAN AVERAGE SALARY OF ALL THE EMPLOYEE
+
+-----FIRST WE NEED TO FIND THE AVERAGE SALARY OF ALL THE EMPLOYEE
+-----USING THE AVERAGE CAN BE FIND THE WHO IS LOWEST SALARY OF AVERAGE
+
+SELECT * FROM Employee WHERE SALARY <
+(SELECT AVG(SALARY) FROM Employee)
+
+----SELECT ALL THE EMPLOYEE WHO IS LOCATED IN CHENNAI 
+---1. FIRST WE NEED TO FIND LOCATION BY LOCATION ID
+---2. USING LOCATIONID CAN FIND DEP_ID
+---3. USING DEP_ID CAN FIND THE EMPLOYEE WHO IS LOCATED IN CHENNAI
+
+SELECT * FROM Employee
+SELECT * FROM department
+SELECT * FROM locations
+
+
+SELECT * FROM Employee where DEP_ID IN(
+(SELECT DEP_ID FROM department WHERE LOCATION_IT IN 
+(SELECT LOCATION_IT FROM locations WHERE CITY = 'CHENNAI')))
+
+---create a new table called employee_chennai and insert all the employee from chennai
+
+-----first creat the table 
+
+select * into employee_chennai from Employee where 1=0
+
+insert into employee_chennai 
+SELECT * FROM Employee where DEP_ID IN(
+(SELECT DEP_ID FROM department WHERE LOCATION_IT IN 
+(SELECT LOCATION_IT FROM locations WHERE CITY = 'CHENNAI')))
+
+select * from  employee_chennai
+
+---update the salary of all the employee who salary is less than tha average to average
+
+UPDATE Employee SET SALARY = (select AVG(salary) from Employee) WHERE SALARY >
+(select AVG(salary) from Employee)
+
+
+----DELETE ALL THE EMPLOYEE WHOES DEPARTMENT IS EITHER ADMINISTRATION OR MARKET
+
+DELETE from Employee where DEP_ID IN(
+SELECT DEP_ID FROM department WHERE DEP_NAME IN ('Administration','Marketing'))
+
+
+--------------------------------CORRELATED----------------------------------
+
+-----List all employee who salary is less than the AVG salary in that department
+
+SELECT * FROM Employee E1 WHERE SALARY <
+(
+SELECT AVG(SALARY) FROM Employee E2 
+WHERE E2.DEP_ID = E1.DEP_ID
+)
+
+SELECT * FROM Employee E1 WHERE SALARY <
+(SELECT AVG(SALARY) FROM Employee E2 WHERE E2.DEP_ID = 50 and E1.DEP_ID = 50)
+
+SELECT * FROM Employee e1 WHERE SALARY <
+(SELECT AVG(SALARY) FROM Employee e2
+ where e2.DEP_ID = e1.DEP_ID )
+
+
+ SELECT DEP_ID, AVG(SALARY) AVG_SALARY FROM Employee GROUP BY DEP_ID
+ SELECT * FROM Employee
+
+ ---List all employee and find the who's second highest salary
+ 
+ SELECT * FROM Employee WHERE SALARY =(
+ SELECT MAX(SALARY) FROM Employee where SALARY < (
+ SELECT MAX(SALARY) FROM Employee))
+
+
+ --------LIST ALL THE EMPLOYEE AND FIND THE AVERAGE SALARY  AND FIND WHO IS LOWEST SALARY IN THAT DEPARTMENT
+
+ SELECT * FROM Employee E1 WHERE SALARY <
+ (SELECT AVG(SALARY) FROM Employee E2 WHERE E2.DEP_ID = E1.DEP_ID)
+
+ SELECT * FROM Employee WHERE EMP_ID IS NULL
+ SELECT COUNT(*) FROM Employee where EMP_ID IS NULL
+
+ SELECT GETDATE()
+ SELECT CURRENT_TIMESTAMP
+ SELECT SYSTEM_USER
+
+ SELECT CURRENT_REQUEST_ID()
+
+ SELECT SYSDATETIME()
+ SELECT SYSUTCDATETIME()
+
+
+ SELECT * FROM Employee
+
+ ------How to find the second highest salary of employee table 
+
+ SELECT MAX(SALARY) from Employee where SALARY<>
+ (SELECT MAX(SALARY) FROM Employee)
+
+-------write a query to find the nth highest salary in a table
+
+Select distinct salary from employee order by SALARY desc 
+
+select * from department
+
+------WRITE A Query to find the duplicate row in employee for column of department name
+
+select DEP_NAME, count(*) from department group by DEP_NAME HAVING COUNT(*) > 1
