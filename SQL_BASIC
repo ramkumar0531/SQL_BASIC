@@ -1,0 +1,48 @@
+CREATE DATABASE BASIC_SQL
+
+CREATE TABLE BASIC_STUDENT
+(
+RollNo int,
+Name varchar(200),
+Department varchar(200),
+age int,
+Date_of_Birth date,
+Gender char(1)
+)
+
+SELECT * FROM BASIC_STUDENT   
+
+INSERT INTO BASIC_STUDENT VALUES (1101,'Ramkumar','ComputerScience',34,'1986-09-01','M')
+
+--------'How to add new column in the existing table'---------
+
+ALTER TABLE BASIC_STUDENT ADD INSTITUE VARCHAR(50)
+
+INSERT INTO BASIC_STUDENT VALUES (1102,'Kavitha','Electrical and Electranic',28,'1992-03-08','F')
+
+
+---how to update the value of INSTITU FOR RollNo 1101
+
+update BASIC_STUDENT set INSTITUE = 'Rajah college' where RollNo = 1101
+
+----how to delete the record from the table 
+
+delete from BASIC_STUDENT where RollNo = 1102
+
+----How to remove the one column from the table
+
+ALTER TABLE BASIC_STUDENT DROP COLUMN INSTITUE
+
+-----how to delete the entire data from the table
+
+TRUNCATE TABLE BASIC_STUDENT
+
+SELECT * FROM BASIC_STUDENT
+
+---HOW TO DELETE THE TABLE ALONG WITHE THE TABLE STRUCTURE
+
+DROP TABLE BASIC_STUDENT
+
+---HOW TO DELETE THE DATABASE
+
+DROP DATABASE BASIC_SQL
