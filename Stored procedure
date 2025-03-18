@@ -1,0 +1,51 @@
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[USP_SchoolForm]
+	-- Add the parameters for the stored procedure here
+	@type VARCHAR(50),
+	@SchoolName VARCHAR(250) = null,
+	@schoolcode VARCHAR(250) = null,
+	@Administratorname VARCHAR(250) = null,
+	@Contactnumber VARCHAR(250) = null,
+	@Schoolemail VARCHAR(250) = null,
+	@Schooladdress VARCHAR(250) = null,
+	@gategory VARCHAR(250) = null,
+	@Representativedetail VARCHAR(250) = null,
+	@Repname VARCHAR(250) = null,
+	@Mobilenumber VARCHAR(250) = null,
+	@id Bigint = null
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	if(@type = 'select')
+	select * from SchoolRegistration
+	else if(@type = 'insert')
+	insert into SchoolRegistration values (@SchoolName,@schoolcode,@Administratorname,@Contactnumber,@Schoolemail,@Schooladdress,@gategory,@Representativedetail,@Repname,@Mobilenumber)
+	else if(@type = 'update')
+	update SchoolRegistration set [School Name]=@SchoolName,[School Code]=@schoolcode,[Administrator name]=@Administratorname,[Contact number]=@Contactnumber,[School email]=@Schoolemail,[School address]=@Schooladdress,Category=@gategory,[Representative detail]=@Representativedetail,Name=@Repname,[Mobile number]=@Mobilenumber where ID=@id
+	else if(@type = 'delete')
+	Delete from SchoolRegistration where ID=@id
+END
+GO
