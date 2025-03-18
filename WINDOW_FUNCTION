@@ -1,0 +1,86 @@
+CREATE DATABASE WINDOW_FIUNCTION
+
+CREATE TABLE PRODUCT
+(
+PRODUCT_CATEGORY VARCHAR(30),
+BRAND VARCHAR(30),
+PRODUCT_NAME VARCHAR(30),
+PRICR INT
+)
+
+SELECT * FROM PRODUCT
+
+INSERT INTO PRODUCT VALUES
+('Phone','Apple','iPhone 12 pro max',1300),
+('Phone','Apple','iPhone 12  max',1100),
+('Phone','Apple','iPhone 12 pro',1000),
+('Phone','Samsung','Galexy Z Fold 3',1800),
+('Phone','Samsung','Galexy Z Filp 3',1000),
+('Phone','Samsung','Galexy Note 20',1200),
+('Phone','Samsung','Galexy S21',1000),
+('Phone','Oneplus','OnePlus Nord',300),
+('Phone','Oneplus','OnePlus 9',800),
+('Phone','Google','Pixel 5',600),
+('Laptop','Apple','MacBook Pro12',2000),
+('Laptop','Apple','MacBook Air',1200),
+('Laptop','Microsoft','Surface laptop 4',2100),
+('Laptop','Dell','XPS13 ',2000),
+('Laptop','Dell','XPS15 ',2300),
+('Laptop','Dell','XPS17 ',2500),
+('Earphone','Apple','AirPods Pro ',280),
+('Earphone','Samsung','Galaxy Buds Pro ',220),
+('Earphone','Samsung','Galaxy Buds Live',170),
+('Earphone','Sony','WF-1000XMA4',250),
+('HeadPhone','Sony','WH-1000XMA4',400),
+('HeadPhone','Apple','AirPods Max',550),
+('HeadPhone','Microsoft','Surface HeadPhone2',250),
+('SmartWatch','Apple','AppleWatch Serier6',1000),
+('SmartWatch','Apple','AppleWatch SE',400),
+('SmartWatch','Samsung','Galaxy watch 4',600),
+('SmartWatch','OnePlus','OnePlus Watch',220)
+
+SELECT * FROM PRODUCT
+
+---------------------------------------------FIRST_VALUE AND LAST VALUE-------------------------------------------------------------------
+
+SELECT *, 
+FIRST_VALUE(PRODUCT_NAME) OVER(PARTITION BY PRODUCT_CATEGORY ORDER BY PRICR DESC) AS EXPENSIVE_PRODUCT,
+LAST_VALUE (PRODUCT_NAME) OVER(PARTITION BY PRODUCT_CATEGORY ORDER BY PRICR DESC 
+RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+) AS LEAST_EXPENSIVE
+FROM PRODUCT
+
+SELECT *, LAST_VALUE (PRODUCT_NAME) OVER(PARTITION BY PRODUCT_CATEGORY ORDER BY PRICR) AS LEAST_EXPENSIVE 
+FROM PRODUCT
+
+------------------------------------NTH_Value------------------------------------------------------------------
+
+SELECT *, 
+FIRST_VALUE(PRODUCT_NAME) OVER W AS EXPENSIVE_PRODUCT,
+LAST_VALUE (PRODUCT_NAME) OVER W  AS LEAST_EXPENSIVE,
+nth_value (PRODUCT_NAME) OVER W  AS second_EXPENSIVE,
+FROM PRODUCT
+
+WINDOW  W AS  (PARTITION BY PRODUCT_CATEGORY ORDER BY PRICR DESC
+RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+
+
+------------------------------------------NTILE---------------------------------------------------------------
+
+SELECT PRODUCT_NAME,
+CASE 
+	WHEN X.buckets = 1 then 'EXPENSINVE PHONE'
+	WHEN X.buckets = 2 then 'MID RANGE PHONE'
+	WHEN X.buckets = 3 then 'CHEAPER PHONE'
+END PHONE_CATEGORY
+FROM(
+	select *, NTILE(3) over(order by PRICR DESC) as buckets
+	from PRODUCT 
+	where PRODUCT_CATEGORY = 'Phone') as X
+
+SELECT * FROM PRODUCT
+
+
+---------------------------CUME_DIST (cumulative distribution)---------------------------------------------
+
+SELECT * FROM PRODUCT 
