@@ -1,0 +1,54 @@
+--There are 5 different type of SQL commands
+
+----  DDL  (DATA DEFINITION LANGUAGE) (CREATE, DROP, TRUNCATE, ALTER)
+----  DML  (DATA MANIPULATION LANGUAGE)(INSERT, UPDATE,DELET)
+----  DCL  (DATA CONTROL LANGUAGE) (GRAND, REVOKE)
+----  TCL  (TRANSACTION CONTROL LANGUAGE)(BEGIN,COMMIT,ROLLBACK,SAVEPOINT)
+----  DQL  (DATA QUERY LANGUAGE) (SELECT)
+
+
+DDL (CREATE)
+============
+
+CREATE TABLE STUDENT(
+id int,
+name varchar(50),
+department varchar(50),
+address varchar(50)
+
+DDL (ALTER)
+===========
+ALTER TABLE STUDENT ADD PHONE INT
+
+DDL(TRUNCATE)
+=============
+TRUNCATE TABLE STUDENT
+
+DDL(DROP)
+=========
+DROP TABLE STUDENT
+==================================================================================================
+
+DML (INSERT)
+============
+INSERT INTO STUDENT VALUES(1100,'Ramkumar','computerscience','chennai')
+
+DML (UPDATE)
+============
+
+UPDATE SUTDENT SET NAME ='KAVITHA' WHERE id = 1100
+
+DML(DELETE)
+===========
+
+DELETE FROM STUDENT WHERE id = 1100
+
+===============================================================================================================
+
+DQL (SELECT)
+============
+SELECT * FROM STUDENT
+
+===============================================================================================================
+
+
